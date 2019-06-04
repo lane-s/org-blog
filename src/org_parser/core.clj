@@ -2,18 +2,6 @@
   (:require [clojure.string :as str])
   (:gen-class))
 
-(defmacro map-nested
-  [fn pred & body]
-  `(map (fn [elem#] (~fn ~pred elem#)) ~@body))
-
-(defmacro map-in
-  [pred & body]
-  `(map-nested map ~pred ~@body))
-
-(defmacro filter-in
-  [pred & body]
-  `(map-nested filter ~pred ~@body))
-
 (defn drop-blank
   [coll]
   (drop-while str/blank? coll))
