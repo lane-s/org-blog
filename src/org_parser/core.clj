@@ -52,10 +52,9 @@
   "Splits metadata line into a key value pair
   Format :KEY: Value Text Here"
   [line]
-  (let [[before-last-colon remaining] (->> line
-                                           (drop 1) ;; Drop the first colon
-                                           (split-with-exclusive #(not= % \:))
-                                           (map str/join))
+  (let [[before-last-colon remaining] (-> line
+                                           (subs 1) ;; Drop the first colon
+                                           (str/split #":"))
         k (->> before-last-colon
                str/lower-case
                keyword)
@@ -76,11 +75,7 @@
         (map (fn [[heading section]]
                (let [[body subheadings]
                      (split-with #(not (str/starts-with? % "*")) section)] ;; Get lines before and after the first subheading
-                 {:heading (->> heading
-                                first
-                                (drop depth)
-                                str/join
-                                str/trim)
+                 {:heading (-> (subs (first heading) depth) str/trim)
                   :body (parse-body body)
                   :subheadings (parse-post subheadings (inc depth))}))))))
 
