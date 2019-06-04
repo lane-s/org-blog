@@ -98,7 +98,6 @@
   blocks"
   [body]
   (->> body
-       ;; FIXME Would it be possible to write a partition function that works better for this case and makes the reducer less complex?
        (partition-by (fn [line]
                        (let [line-starts-with (partial str/starts-with? line)]
                          (or (line-starts-with src-begin)
@@ -109,8 +108,8 @@
        (reduce (fn [parsed next-partition]
                  (let [[first-line & remaining] next-partition
                        line-starts-with         (partial str/starts-with? first-line)
-                       last-parsed              (first parsed)
-                       assoc-last               #(cons (assoc last-parsed %1 %2) (rest parsed))]
+                       last-parsed              (last parsed)
+                       assoc-last               #(conj (pop parsed) (assoc last-parsed %1 %2))]
                    (cond
                      (line-starts-with src-begin)      (add-code-block first-line parsed)
                      (line-starts-with src-end)        parsed
@@ -119,29 +118,31 @@
                      (line-starts-with src-results) (assoc-last :execution-results nil)
                      (is-result-row? last-parsed)   (update-code-block-with-results assoc-last next-partition)
 
-                     :else (cons {:type :plaintext :body next-partition} parsed))))
-               '())
-       reverse))
+                     :else (conj parsed {:type :plaintext :body next-partition}))))
+               [])))
+
+(def test-list [1 2 3 4 5])
+(conj (pop test-list) 6)
 
 (defn add-code-block
   [line coll]
-  (cons {:type     :code-block
-         :src-type (second (str/split line #" "))} coll))
+  (conj coll {:type :code-block
+              :src-type  (second (str/split line #" "))}))
 
 (defn in-code-block-body?
   [last-parsed]
   (and (= (:type last-parsed) :code-block)
-       (not (contains? last-parsed :body))))
+       (not (:body last-parsed))))
 
 (defn is-result-row?
   [last-parsed]
-  (and (contains? last-parsed :execution-results)
-       (nil? (:execution-results last-parsed))))
+  (contains? last-parsed :execution-results))
 
 (defn update-code-block-with-results
   [assoc-last [line & remaining]]
-  (cond->>
+  (cond->
    (assoc-last :execution-results line)
-    (not-empty remaining) (cons {:type :plaintext :body remaining})))
+    (not-empty remaining) (conj {:type :plaintext
+                                 :body remaining})))
 
 ;; (-> "./test/org_parser/test_post.org" slurp file-contents->trimmed-lines strip-metadata second parse-post)
