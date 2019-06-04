@@ -68,23 +68,30 @@
   and parses into a tree structure"
   ([lines] (parse-post lines 1))
   ([lines depth]
-   (->> lines
-        (drop-while #(-> % first (not= \*))) ;; Advance to first heading
-        (partition-by #(is-heading? % depth))
-        (partition 2)                   ;; Group each heading with all lines under the heading
-        (map (fn [[heading section]]
-               (let [[body subheadings]
-                     (split-with #(not (str/starts-with? % "*")) section)] ;; Get lines before and after the first subheading
-                 {:heading (-> (subs (first heading) depth) str/trim)
-                  :body (parse-body body)
-                  :subheadings (parse-post subheadings (inc depth))}))))))
+   (let [is-heading? (partial is-heading? depth)]
+     (->> lines
+          (drop-while (complement is-heading?)) ;; Advance to first heading
+          (partition-by is-heading?)
+          (reduce (fn [grouped next-partition]
+                    (let [first-line (first next-partition)
+                          last-heading (first (last grouped))]
+                      (if (is-heading? first-line)
+                        (conj grouped [first-line '()])
+                        (conj (pop grouped) [last-heading next-partition])))) [])
+          (map (fn [[heading section]]
+                 (let [[body subheadings]
+                       (split-with #(not (str/starts-with? % "*")) section)] ;; Get lines before and after the first subheading
+                   {:heading (-> heading (subs depth) str/trim)
+                    :body (parse-body body)
+                    :subheadings (parse-post subheadings (inc depth))})))))))
 
 (defn is-heading?
-  [line heading-level]
+  [heading-level line]
   (and (= (take heading-level line)
           (take heading-level (repeat \*)))
        (= (nth line heading-level)
-          \space)))
+          \space)
+       line))
 
 (def src-begin "#+BEGIN_SRC")
 (def src-end "#+END_SRC")

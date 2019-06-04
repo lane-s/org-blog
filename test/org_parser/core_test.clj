@@ -7,39 +7,36 @@
 (def test-series-1 (slurp (str test-path "test_post_series_1.org")))
 (def test-series-2 (slurp (str test-path "test_post_series_2.org")))
 
-(def parsed-post
-  `({:heading "Post Title",
-     :body
-     ({:type :plaintext, :body ("This is the introductory paragraph." "")}
-      {:type              :code-block,
-       :src-type          "clojure",
-       :body              ("(+ 1 2)"),
-       :execution-results ": 3"}
-      {:type :plaintext,
-       :body
-       (""
-        "Here's another little paragraph with some more text."
-        "")}),
-     :subheadings
-     ({:heading     "Heading one",
-       :body        ({:type :plaintext, :body ("Here's the first section." "")}),
-       :subheadings ()}
-      {:heading "Heading two",
-       :body
-       ({:type :plaintext,
-         :body
-         ("Here's the first paragraph of the first section."
-          ""
-          "Here's the next paragraph."
-          "")}),
-       :subheadings
-       ({:heading "This is a subheading", :body (), :subheadings ()})}
-      {:heading     "Heading three",
-       :body        ({:type :plaintext, :body ("Here's the last paragraph" "")}),
-       :subheadings ()})}
-    {:heading     "Next top level",
-     :body        ({:type :plaintext, :body ("Here's the content" "")}),
-     :subheadings ()}))
+(def parsed-post `({:heading "Post Title",
+                   :body
+                   [{:type :plaintext, :body ("This is the introductory paragraph." "")}
+                    {:type :code-block,
+                     :src-type "clojure",
+                     :body ("(+ 1 2)"),
+                     :execution-results ": 3"}
+                    {:type :plaintext,
+                     :body ("" "Here's another little paragraph with some more text." "")}],
+                   :subheadings
+                   ({:heading "Heading one",
+                     :body [{:type :plaintext, :body ("Here's the first section." "")}],
+                     :subheadings ()}
+                    {:heading "Heading two",
+                     :body
+                     [{:type :plaintext,
+                       :body
+                       ("Here's the first paragraph of the first section."
+                        ""
+                        "Here's the next paragraph."
+                        "")}],
+                     :subheadings
+                     ({:heading "This is a subheading", :body [], :subheadings ()}
+                      {:heading "Here's one directly after", :body [], :subheadings ()})}
+                    {:heading "Heading three",
+                     :body [{:type :plaintext, :body ("Here's the last paragraph" "")}],
+                     :subheadings ()})}
+                  {:heading "Next top level",
+                   :body [{:type :plaintext, :body ("Here's the content" "")}],
+                   :subheadings ({:heading "Here's more content", :body [], :subheadings ()})}))
 
 (def parsed-metadata {:category "Clojure"})
 

@@ -23,6 +23,7 @@ Here's the first paragraph of the first section.
 Here's the next paragraph.
 
 *** This is a subheading
+*** Here's one directly after
 
 ** Heading three
 Here's the last paragraph
