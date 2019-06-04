@@ -136,7 +136,7 @@
 (defn in-code-block-body?
   [last-parsed]
   (and (= (:type last-parsed) :code-block)
-       (not (contains? (:body last-parsed)))))
+       (not (contains? last-parsed :body))))
 
 (defn is-result-row?
   [last-parsed]
