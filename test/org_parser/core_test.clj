@@ -10,23 +10,23 @@
 (def parsed-post
   `({:heading "Post Title",
      :body
-     ({:type :paragraph, :body ("This is the introductory paragraph." "")}
+     ({:type :plaintext, :body ("This is the introductory paragraph." "")}
       {:type              :code-block,
        :src-type          "clojure",
        :body              ("(+ 1 2)"),
        :execution-results ": 3"}
-      {:type :paragraph,
+      {:type :plaintext,
        :body
        (""
         "Here's another little paragraph with some more text."
         "")}),
      :subheadings
      ({:heading     "Heading one",
-       :body        ({:type :paragraph, :body ("Here's the first section." "")}),
+       :body        ({:type :plaintext, :body ("Here's the first section." "")}),
        :subheadings ()}
       {:heading "Heading two",
        :body
-       ({:type :paragraph,
+       ({:type :plaintext,
          :body
          ("Here's the first paragraph of the first section."
           ""
@@ -35,10 +35,10 @@
        :subheadings
        ({:heading "This is a subheading", :body (), :subheadings ()})}
       {:heading     "Heading three",
-       :body        ({:type :paragraph, :body ("Here's the last paragraph" "")}),
+       :body        ({:type :plaintext, :body ("Here's the last paragraph" "")}),
        :subheadings ()})}
     {:heading     "Next top level",
-     :body        ({:type :paragraph, :body ("Here's the content" "")}),
+     :body        ({:type :plaintext, :body ("Here's the content" "")}),
      :subheadings ()}))
 
 (def parsed-metadata {:category "Clojure"})
