@@ -110,7 +110,7 @@
                              (line-starts-with src-end)
                              (line-starts-with src-results)))))
        (map drop-blank)
-       (filter (complement empty?))
+       (filter not-empty)
        (reduce (fn [parsed next-partition]
                  (let [[first-line & remaining] next-partition
                        line-starts-with         (partial str/starts-with? first-line)
