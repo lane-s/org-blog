@@ -124,7 +124,7 @@
                      (line-starts-with src-results) (assoc-last :execution-results nil)
                      (is-result-row? last-parsed)   (update-code-block-with-results assoc-last next-partition)
 
-                     :else (cons {:type :paragraph :body next-partition} parsed))))
+                     :else (cons {:type :plaintext :body next-partition} parsed))))
                '())
        reverse))
 
@@ -147,6 +147,6 @@
   [assoc-last [line & remaining]]
   (cond->>
    (assoc-last :execution-results line)
-    (not-empty remaining) (cons {:type :paragraph :body remaining})))
+    (not-empty remaining) (cons {:type :plaintext :body remaining})))
 
 ;; (-> "./test/org_parser/test_post.org" slurp file-contents->trimmed-lines strip-metadata second parse-post)
