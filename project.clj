@@ -10,7 +10,8 @@
                  [com.layerware/hugsql "0.4.9"]
                  [org.postgresql/postgresql "42.2.2"]
                  [migratus "1.2.3"]
-                 [org.slf4j/slf4j-log4j12 "1.7.26"]]
+                 [org.slf4j/slf4j-log4j12 "1.7.26"]
+                 [cheshire "5.8.1"]]
   :plugins [[lein-ring "0.12.5"]
             [migratus-lein "0.7.2"]]
   :ring {:handler ls-portfolio-blog.handler/app}
