@@ -1,4 +1,7 @@
 (ns ls-portfolio-blog.db.posts
-  (:require [ls-portfolio-blog.db :refer [def-db-fns-with-spec db]]))
+  (:require [hugsql.core :as hugsql]
+            [ls-portfolio-blog.db :refer [defmigration]]))
 
-(def-db-fns-with-spec db "ls_portfolio_blog/db/sql/posts.sql")
+(hugsql/def-db-fns  "ls_portfolio_blog/db/sql/posts.sql")
+
+(defmigration add-posts create-table remove-table)
