@@ -5,7 +5,7 @@
 create table posts (
   id serial primary key,
   filename varchar not null,
-  serialized_post varchar not null
+  post varchar not null
 );
 
 create index idx_filename on posts(filename);
@@ -19,8 +19,8 @@ drop table posts;
 
 -- :name insert :! :n
 -- :doc Insert a single post returning affected row count
-insert into posts (filename, serialized_post)
-values (:filename, :serialized_post);
+insert into posts (filename, post)
+values (:filename, :post);
 
 -- :name get-by-filename :? :1
 -- :doc Get post by filename
