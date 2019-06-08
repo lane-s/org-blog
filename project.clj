@@ -1,4 +1,4 @@
-(defproject ls-portfolio-blog "0.1.0-SNAPSHOT"
+(defproject org-blog "0.1.0-SNAPSHOT"
   :description "FIXME: write description"
   :url "http://example.com/FIXME"
   :license {:name "EPL-2.0 OR GPL-2.0-or-later WITH Classpath-exception-2.0"
@@ -14,7 +14,7 @@
                  [cheshire "5.8.1"]]
   :plugins [[lein-ring "0.12.5"]
             [migratus-lein "0.7.2"]]
-  :ring {:handler ls-portfolio-blog.handler/app}
+  :ring {:handler org-blog.handler/app}
   :migratus {:store :database
              :migration-dir "migrations"
              :db {:classname "org.postgresql.Driver"

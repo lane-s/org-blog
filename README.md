@@ -1,4 +1,4 @@
-# ls-portfolio-blog
+# org-blog
 
 FIXME: description
 
@@ -10,7 +10,7 @@ Download from http://example.com/FIXME.
 
 FIXME: explanation
 
-    $ java -jar ls-portfolio-blog-0.1.0-standalone.jar [args]
+    $ java -jar org-blog-0.1.0-standalone.jar [args]
 
 ## Options
 

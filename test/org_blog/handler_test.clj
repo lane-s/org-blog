@@ -1,10 +1,10 @@
-(ns ls-portfolio-blog.handler-test
+(ns org-blog.handler-test
   (:require [clojure.test :refer :all]
             [ring.mock.request :as mock]
             [cheshire.core :as json]
-            [ls-portfolio-blog.handler :refer :all]
-            [ls-portfolio-blog.db :refer [db]]
-            [ls-portfolio-blog.db-test :refer [db-fixture test-db]]))
+            [org-blog.handler :refer :all]
+            [org-blog.db :refer [db]]
+            [org-blog.db-test :refer [db-fixture test-db]]))
 
 (deftest test-app
   (testing "main route"

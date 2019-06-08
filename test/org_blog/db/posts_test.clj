@@ -1,7 +1,7 @@
-(ns ls-portfolio-blog.db.posts-test
+(ns org-blog.db.posts-test
   (:require [clojure.test :refer :all]
-            [ls-portfolio-blog.db.posts :refer :all]
-            [ls-portfolio-blog.db-test :refer [db-fixture test-db]]))
+            [org-blog.db.posts :refer :all]
+            [org-blog.db-test :refer [db-fixture test-db]]))
 
 (use-fixtures :once db-fixture)
 

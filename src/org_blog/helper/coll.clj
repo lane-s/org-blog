@@ -1,4 +1,4 @@
-(ns ls-portfolio-blog.helper.coll)
+(ns org-blog.helper.coll)
 
 (defn replace-last
   "Replace the last element in `coll`

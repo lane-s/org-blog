@@ -1,7 +1,7 @@
-(ns ls-portfolio-blog.helper.routes
+(ns org-blog.helper.routes
   (:require [compojure.core :refer :all]
             [ring.util.request :refer [body-string]]
-            [ls-portfolio-blog.helper.coll :refer [replace-last]]
+            [org-blog.helper.coll :refer [replace-last]]
             [cheshire.core :as json]))
 
 (defn json-response [data & [status]]

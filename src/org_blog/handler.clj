@@ -1,11 +1,11 @@
-(ns ls-portfolio-blog.handler
+(ns org-blog.handler
   (:require [compojure.core :refer :all]
             [compojure.route :as route]
             [ring.middleware.defaults :refer
              [wrap-defaults site-defaults api-defaults]]
-            [ls-portfolio-blog.db :refer [db]]
-            [ls-portfolio-blog.db.posts :as posts]
-            [ls-portfolio-blog.helper.routes :refer [defroutes-api]]))
+            [org-blog.db :refer [db]]
+            [org-blog.db.posts :as posts]
+            [org-blog.helper.routes :refer [defroutes-api]]))
 
 (defroutes app-routes
   (GET "/" [] "Hello World")

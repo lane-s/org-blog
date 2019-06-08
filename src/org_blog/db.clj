@@ -1,4 +1,4 @@
-(ns ls-portfolio-blog.db
+(ns org-blog.db
   (:require [hugsql.core :as hugsql]))
 
 (def db

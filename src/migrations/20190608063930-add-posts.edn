@@ -1,3 +1,3 @@
-{:ns ls-portfolio-blog.db.posts
+{:ns org-blog.db.posts
  :up-fn add-posts-up
  :down-fn add-posts-down}
