@@ -1,0 +1,3 @@
+{:ns ls-portfolio-blog.db.posts
+ :up-fn create-table
+ :down-fn remove-table}

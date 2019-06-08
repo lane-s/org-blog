@@ -8,9 +8,19 @@
                  [compojure "1.6.1"]
                  [ring/ring-defaults "0.3.2"]
                  [com.layerware/hugsql "0.4.9"]
-                 [org.postgresql/postgresql "42.2.2"]]
-  :plugins [[lein-ring "0.12.5"]]
+                 [org.postgresql/postgresql "42.2.2"]
+                 [migratus "1.2.3"]
+                 [org.slf4j/slf4j-log4j12 "1.7.26"]]
+  :plugins [[lein-ring "0.12.5"]
+            [migratus-lein "0.7.2"]]
   :ring {:handler ls-portfolio-blog.handler/app}
+  :migratus {:store :database
+             :migration-dir "migrations"
+             :db {:classname "org.postgresql.Driver"
+                  :subprotocol "postgresql"
+                  :subname "//localhost:5432/portfolio_blog"
+                  :user "postgres"
+                  :password "docker"}}
   :profiles
   {:dev {:dependencies [[javax.servlet/servlet-api "2.5"]
                         [ring/ring-mock "0.3.2"]]}})
