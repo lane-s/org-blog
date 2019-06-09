@@ -16,7 +16,7 @@
                                        file-contents->trimmed-lines
                                        strip-metadata)
         post                       (parse-post remaining-lines)]
-    {:post     post
+    {:body     post
      :metadata metadata}))
 
 (defn file-contents->trimmed-lines

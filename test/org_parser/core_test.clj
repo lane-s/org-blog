@@ -62,5 +62,5 @@
 (deftest parse-test
   (testing "Returns parsed post"
     (is (= (parse test-post)
-           {:post parsed-post
+           {:body parsed-post
             :metadata parsed-metadata}))))

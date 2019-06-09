@@ -31,7 +31,7 @@
       (assoc result :post parsed-post)))
   (DELETE "post/:filename"
           [filename]
-          (posts/remove-by-filename db {:filename filename}) ))
+          (posts/remove-by-filename db {:filename filename})))
 
 (def app
   (routes (wrap-defaults api-routes api-defaults)
