@@ -1,5 +1,6 @@
 (ns org-parser.core
-  (:require [clojure.string :as str])
+  (:require [clojure.string :as str]
+            [cheshire.core :as json])
   (:gen-class))
 
 (defn drop-blank
@@ -151,5 +152,8 @@
    (assoc-last :execution-results line)
     (not-empty remaining) (conj {:type :plaintext
                                  :body remaining})))
+
+(defn org->json [contents]
+  (-> contents parse json/generate-string))
 
 ;; (-> "./test/org_parser/test_post.org" slurp file-contents->trimmed-lines strip-metadata second parse-post)
