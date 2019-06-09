@@ -27,6 +27,11 @@ values (:filename, :post);
 select * from posts
 where filename = :filename;
 
+-- :name remove-by-filename :! :n
+-- :doc Remove a single post returning affected row count
+delete from posts
+where filename = :filename;
+
 -- :name get-all :? :*
 -- :doc Return all posts
 select * from posts;

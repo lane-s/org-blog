@@ -24,6 +24,9 @@
 (defroutes-api api-routes
   (GET "posts" [] (posts/get-all db))
   (POST "post" body (add-or-preview-post body))
+  (DELETE "post/:filename"
+          [filename]
+          (posts/remove-by-filename db {:filename filename}) )
   (GET "post/:filename"
     [filename]
     (posts/get-by-filename db {:filename filename})))
