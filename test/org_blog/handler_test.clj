@@ -46,11 +46,14 @@
     (testing "List posts"
       (let [res (app (mock/request :get "/api/posts"))]
         (is (= (:status res) 200))
-        (is (= (-> res :body (json/parse-string true))
-               [{:id 1
-                 :filename "test_post.org"}
-                {:id 2
-                 :filename "test_post_series_2.org"}]))))
+        (let [parsed-result (-> res :body (json/parse-string true))]
+          (is (= (map #(select-keys % [:id :filename]) parsed-result)
+                 [{:id 1
+                   :filename "test_post.org"}
+                  {:id 2
+                   :filename "test_post_series_2.org"}]))
+          (is (every? #(and (:created_at %)
+                           (:updated_at %)) parsed-result)))))
     (testing "Get by filename"
       (post-is "test_post.org" (org->json test-post)))
     (testing "Update post"

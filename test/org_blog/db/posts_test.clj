@@ -11,7 +11,7 @@
   (testing "Inserting a post is successful"
     (insert test-db {:filename "test" :post "test body"})
     (let [posts (get-all test-db)]
-      (is (= (first posts)
+      (is (= (select-keys (first posts) [:id :filename])
              {:id 1
               :filename "test"}))
       (is (= (count posts) 1))))
