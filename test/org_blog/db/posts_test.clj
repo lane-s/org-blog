@@ -13,8 +13,7 @@
     (let [posts (get-all test-db)]
       (is (= (first posts)
              {:id 1
-              :filename "test"
-              :post "test body"}))
+              :filename "test"}))
       (is (= (count posts) 1))))
   (testing "Getting a post by filename"
     (is (= (:id (get-by-filename test-db {:filename "test"}))

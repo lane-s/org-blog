@@ -34,4 +34,4 @@ where filename = :filename;
 
 -- :name get-all :? :*
 -- :doc Return all posts
-select * from posts;
+select id, filename from posts;
