@@ -1,0 +1,25 @@
+:base = http://localhost:3000/api
+:post_name = test_post.org
+
+# List all posts
+GET :base/posts
+User-Agent: Emacs27
+Accept-Encoding: compress, gzip
+
+# Add a new post
+POST :base/post
+Content-Type: application/json
+{
+"filename": ":post_name",
+"post": "post body"
+}
+
+# Get by filename
+GET :base/post/:post_name
+User-Agent: Emacs27
+Accept-Encoding: compress, gzip
+
+# Remove by filename
+DELETE :base/post/:post_name
+User-Agent: Emacs27
+Accept-Encoding: compress, gzip
