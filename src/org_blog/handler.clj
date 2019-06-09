@@ -3,6 +3,7 @@
             [compojure.route :as route]
             [ring.middleware.defaults :refer
              [wrap-defaults site-defaults api-defaults]]
+            [org-parser.core :as org-parser]
             [org-blog.db :refer [db]]
             [org-blog.db.posts :as posts]
             [org-blog.helper.routes :refer [defroutes-api]]
@@ -27,7 +28,7 @@
   (GET "post/:filename"
     [filename]
     (let [result (posts/get-by-filename db {:filename filename})
-          parsed-post (json/parse-string (:post result) true)]
+          parsed-post (-> result :post org-parser/parse)]
       (assoc result :post parsed-post)))
   (DELETE "post/:filename"
           [filename]
