@@ -4,7 +4,8 @@
             [cheshire.core :as json]
             [org-blog.handler :refer :all]
             [org-blog.db :refer [db]]
-            [org-blog.db-test :refer [db-fixture test-db]]))
+            [org-blog.db-test :refer [db-fixture test-db]]
+            [org-parser.core :refer [org->json]]))
 
 (deftest test-app
   (testing "main route"
@@ -22,13 +23,24 @@
   (app (-> (mock/request :post "/api/post")
            (mock/json-body post))))
 
+(def test-post (slurp "./test/org_parser/test_post.org"))
+(def test-series-1 (slurp "./test/org_parser/test_post_series_1.org"))
+(def test-series-2 (slurp "./test/org_parser/test_post_series_2.org"))
+
+(defn post-is
+  [filename post]
+  (let [res (app (mock/request :get "/api/post/test_post.org"))]
+    (is (= (:status res) 200))
+    (is (= (-> res :body (json/parse-string true) :post)
+           (json/parse-string post true)))))
+
 (deftest test-api
   (with-redefs [db test-db]
     (testing "Add posts"
-      (let [res (do (add-post-request {:filename "test.org"
-                                       :post "test body"})
-                    (add-post-request {:filename "test2.org"
-                                       :post "test body 2"}))]
+      (let [res (do (add-post-request {:filename "test_post.org"
+                                       :post test-post})
+                    (add-post-request {:filename "test_post_series_2.org"
+                                       :post test-series-2}))]
         (is (= (:status res) 200))
         (is (= (:body res) "1"))))
     (testing "List posts"
@@ -36,13 +48,13 @@
         (is (= (:status res) 200))
         (is (= (-> res :body (json/parse-string true))
                [{:id 1
-                 :filename "test.org"
-                 :post "test body"}
+                 :filename "test_post.org"}
                 {:id 2
-                 :filename "test2.org"
-                 :post "test body 2"}]))))
+                 :filename "test_post_series_2.org"}]))))
     (testing "Get by filename"
-      (let [res (app (mock/request :get "/api/post/test2.org"))]
-        (is (= (:status res) 200))
-        (is (= (-> res :body (json/parse-string true) :post)
-               "test body 2"))))))
+      (post-is "test_post.org" (org->json test-post)))
+    (testing "Update post"
+      (is (= (:status (add-post-request {:filename "test_post.org"
+                                         :post test-series-1}))
+             200))
+      (post-is "test_post.org" (org->json test-series-2)))))

@@ -11,7 +11,7 @@ POST :base/post
 Content-Type: application/json
 {
 "filename": ":post_name",
-"post": "post body"
+"post": ":BLOG_METADATA:\n:CATEGORY: Clojure\n:END:\n"
 }
 
 # Get by filename

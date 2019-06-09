@@ -22,6 +22,11 @@ drop table posts;
 insert into posts (filename, post)
 values (:filename, :post);
 
+-- :name update-by-filename :! :n
+-- :doc Update a post by filename
+update posts set post = :post
+where filename = :filename
+
 -- :name get-by-filename :? :1
 -- :doc Get post by filename
 select * from posts
