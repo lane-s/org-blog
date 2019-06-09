@@ -7,10 +7,7 @@
 (defmigration add-posts create-table remove-table)
 
 (defn add-or-update
-  [db filename post]
-  (let [params {:filename filename
-                :post post}]
-    (if (get-by-filename
-         db {:filename filename})
-         (update-by-filename db params)
-         (insert db params))))
+  [db params]
+  (if (get-by-filename db (select-keys params [:filename]))
+    (update-by-filename db params)
+    (insert db params)))

@@ -5,6 +5,7 @@
 create table posts (
   id serial primary key,
   filename varchar unique not null,
+  path_relative_to_home varchar,
   post varchar not null,
   created_at timestamp not null,
   updated_at timestamp not null
@@ -21,12 +22,15 @@ drop table posts;
 
 -- :name insert :! :n
 -- :doc Insert a single post returning affected row count
-insert into posts (filename, post, created_at, updated_at)
-values (:filename, :post, current_timestamp, current_timestamp);
+insert into posts (filename, path_relative_to_home, post, created_at, updated_at)
+values (:filename, :path_relative_to_home, :post, current_timestamp, current_timestamp);
 
 -- :name update-by-filename :! :n
 -- :doc Update a post by filename
-update posts set post = :post, updated_at = current_timestamp
+update posts set
+post = :post,
+updated_at = current_timestamp
+--~ (when (contains? params :path_relative_to_home) ", path_relative_to_home = :path_relative_to_home")
 where filename = :filename
 
 -- :name get-by-filename :? :1
@@ -41,4 +45,4 @@ where filename = :filename;
 
 -- :name get-all :? :*
 -- :doc Return all posts
-select id, filename, created_at, updated_at from posts;
+select id, filename, path_relative_to_home, created_at, updated_at from posts;

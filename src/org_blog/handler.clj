@@ -17,10 +17,12 @@
   "Handle POST request for adding,
   updating, and previewing posts"
   [body]
-  (let [{:keys [filename post preview]} body]
+  (let [{:keys [preview]} body]
     (if (#{"true"} preview)
       (println "This should send a preview event")
-      (posts/add-or-update db filename post))))
+      (posts/add-or-update db (select-keys body [:post
+                                                 :filename
+                                                 :path_relative_to_home])))))
 
 (defroutes-api api-routes
   (GET "posts" [] (posts/get-all db))
