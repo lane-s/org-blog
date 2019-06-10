@@ -1,5 +1,5 @@
 (defproject org-blog "0.1.0-SNAPSHOT"
-  :description "FIXME: write description"
+  :description "Backend for storing and parsing .org blog posts"
   :url "http://example.com/FIXME"
   :license {:name "EPL-2.0 OR GPL-2.0-or-later WITH Classpath-exception-2.0"
             :url "https://www.eclipse.org/legal/epl-2.0/"}
@@ -7,6 +7,7 @@
   :dependencies [[org.clojure/clojure "1.10.0"]
                  [compojure "1.6.1"]
                  [ring/ring-defaults "0.3.2"]
+                 [ring/ring-jetty-adapter "1.7.1"]
                  [com.layerware/hugsql "0.4.9"]
                  [org.postgresql/postgresql "42.2.2"]
                  [migratus "1.2.3"]
@@ -16,12 +17,15 @@
             [migratus-lein "0.7.2"]]
   :ring {:handler org-blog.handler/app}
   :migratus {:store :database
-             :migration-dir "migrations"
+             :init-script "init.sql"
+             :init-in-transaction? false
              :db {:classname "org.postgresql.Driver"
                   :subprotocol "postgresql"
-                  :subname "//localhost:5432/portfolio_blog"
+                  :subname "//0.0.0.0:5432/org_blog"
                   :user "postgres"
                   :password "docker"}}
   :profiles
   {:dev {:dependencies [[javax.servlet/servlet-api "2.5"]
-                        [ring/ring-mock "0.3.2"]]}})
+                        [ring/ring-mock "0.3.2"]]}
+   :uberjar {:aot :all
+             :main org-blog.main}})
