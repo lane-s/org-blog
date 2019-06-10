@@ -11,21 +11,44 @@ For now, the system consists of three parts:
 
 ## Deploying org-blog 
 
-## Development Setup
+For now you'll need to build the docker image:
 
-Requires [leiningen](https://leiningen.org/) and Clojure
+    $ ./build.sh
 
-## Running Tests
+Then:
 
-    $ lein test
-
-## Running development server
-
-    $ lein ring server headless
+    $ docker-compose up
+    
+This will run the backend listening on port 3000 and the database on 5432.
 
 ## API
 
-See [REST Api examples](./api_examples.http) to see how the API can be used
+See [REST API examples](./api_examples.http) to see how the API can be used
+
+## Development
+
+Requires Clojure, [leiningen](https://leiningen.org/), and Docker
+
+### Dev Database
+Pull the postgres docker image
+
+    $ docker pull postgres
+    
+Start the test/dev databases:
+
+    $ ./start-dev-db.sh
+
+### Running Tests
+
+    $ lein test
+
+### Running development server
+
+    $ lein ring server headless
+    
+### Build
+
+    $ ./build.sh
 
 ## License
 
