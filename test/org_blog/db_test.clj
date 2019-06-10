@@ -2,11 +2,8 @@
   (:require [migratus.core :as migratus]
             [org-blog.db :refer :all]))
 
-(def test-db (assoc db :subname "//localhost:5432/portfolio_blog_test"))
-(def config {:store :database
-             :migration-dir "migrations"
-             :db test-db})
+(def config (assoc-in migratus-config [:db :subname] "//0.0.0.0/org_blog_test"))
 
 (defn db-fixture [f]
-  (migratus/reset config)
+  (migratus/reset migratus-config)
   (f))

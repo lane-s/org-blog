@@ -1,12 +1,19 @@
 (ns org-blog.db
   (:require [hugsql.core :as hugsql]))
 
+(def db-host (or (System/getenv "DATABASE_HOST") "0.0.0.0:5432"))
+
 (def db
   {:classname "org.postgresql.Driver"
    :subprotocol "postgresql"
-   :subname "//localhost:5432/portfolio_blog"
+   :subname (str "//" db-host "/org_blog")
    :user "postgres"
    :password "docker"})
+
+(def migratus-config {:store :database
+                      :init-script "init.sql"
+                      :init-in-transaction? false
+                      :db db})
 
 (defmacro defmigration [name up down]
   `(do
