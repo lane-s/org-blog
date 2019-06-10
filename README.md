@@ -49,7 +49,10 @@ Start the test/dev databases:
 ### Build
 
     $ ./build.sh
-
+    
+Run the standalone jar:
+    
+    $ java -jar target/org-blog-0.1.0-SNAPSHOT-standalone.jar
 ## License
 
 Copyright © 2019 Lane Spangler
