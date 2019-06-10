@@ -29,10 +29,10 @@
 
 (defn post-is
   [filename post]
-  (let [res (app (mock/request :get "/api/post/test_post.org"))]
+  (let [res (app (mock/request :get (str "/api/post/" filename)))]
     (is (= (:status res) 200))
     (is (= (-> res :body (json/parse-string true) :post)
-           (json/parse-string post true)))))
+           post))))
 
 (deftest test-api
   (with-redefs [db test-db]
@@ -59,10 +59,12 @@
           (is (every? #(and (:created_at %)
                            (:updated_at %)) parsed-result)))))
     (testing "Get by filename"
-      (post-is "test_post.org" (org->json test-post)))
+      (post-is "test_post.org" (-> test-post org->json (json/parse-string true))))
+    (testing "Get raw post by filename"
+      (post-is "test_post.org?raw=1" test-post))
     (testing "Update post"
       (is (= (:status (add-post-request {:filename "test_post.org"
                                          :path_relative_to_home "path/test_post.org"
                                          :post test-series-1}))
              200))
-      (post-is "test_post.org" (org->json test-series-2)))))
+      (post-is "test_post.org" (-> test-series-2 org->json (json/parse-string true))))))

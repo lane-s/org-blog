@@ -28,10 +28,11 @@
   (GET "posts" [] (posts/get-all db))
   (POST "post" body (handle-post body))
   (GET "post/:filename"
-    [filename]
-    (let [result (posts/get-by-filename db {:filename filename})
-          parsed-post (-> result :post org-parser/parse)]
-      (assoc result :post parsed-post)))
+    [filename raw]
+    (let [result (posts/get-by-filename db {:filename filename})]
+      (if raw
+        result
+        (assoc result :post (org-parser/parse (:post result))))))
   (DELETE "post/:filename"
           [filename]
           (posts/remove-by-filename db {:filename filename})))

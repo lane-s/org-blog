@@ -16,8 +16,13 @@ Content-Type: application/json
 
 # Get by filename
 GET :base/post/:post_name
-User-Agent: Emacs27
-Accept-Encoding: compress, gzip
+user-agent: emacs27
+accept-encoding: compress, gzip
+
+# Get raw post by filename
+GET :base/post/:post_name?raw=1
+user-agent: emacs27
+accept-encoding: compress, gzip
 
 # Remove by filename
 DELETE :base/post/:post_name
