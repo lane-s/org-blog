@@ -1,36 +1,35 @@
 # org-blog
 
-FIXME: description
+org-blog is intended for emacs users that want to blog directly from org-mode.
 
-## Installation
+org-blog currently does not provide a complete blogging solution right out of the box. It is meant for developers or others who are willing to do the (fairly small) amount of work required to deploy the servers. After this work is done, you'll be able to write and manage posts in emacs. This is great if, like me, you prefer to use emacs for just about everything. For anyone else, it's probably not worth the trouble.
 
-Download from http://example.com/FIXME.
+For now, the system consists of three parts:
+The backend (this repo): stores, parses, and serves blog posts.
+[org-blog-mode](https://github.com/lane-s/org-blog-mode): an emacs package that provides an interface for managing posts.
+The frontend: Gets parsed posts from the servers and displays them. An example frontend is on the way.
 
-## Usage
+## Deploying org-blog 
 
-FIXME: explanation
+## Development Setup
 
-    $ java -jar org-blog-0.1.0-standalone.jar [args]
+Requires [leiningen](https://leiningen.org/) and Clojure
 
-## Options
+## Running Tests
 
-FIXME: listing of options this app accepts.
+    $ lein test
 
-## Examples
+## Running development server
 
-...
+    $ lein ring server headless
 
-### Bugs
+## API
 
-...
-
-### Any Other Sections
-### That You Think
-### Might be Useful
+See [REST Api examples](./api_examples.http) to see how the API can be used
 
 ## License
 
-Copyright © 2019 FIXME
+Copyright © 2019 Lane Spangler
 
 This program and the accompanying materials are made available under the
 terms of the Eclipse Public License 2.0 which is available at
