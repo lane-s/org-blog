@@ -2,7 +2,7 @@ version: "2"
 services:
   web:
     container_name: org-blog-backend
-    image: lane-s/org-blog:latest
+    image: melodylane/org-blog:latest
     volumes:
       - ~/docker/volumes/postgres:/var/lib/postgresql/data
     ports:

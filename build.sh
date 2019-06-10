@@ -1,3 +1,3 @@
 #!/bin/bash
 lein uberjar
-docker build -t lane-s/org-blog .
+docker build -t melodylane/org-blog .

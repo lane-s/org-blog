@@ -11,15 +11,17 @@ For now, the system consists of three parts:
 
 ## Deploying org-blog 
 
-For now you'll need to build the docker image:
+Pull the docker image
+    
+    $ docker pull melodylane/org-blog:latest
 
-    $ ./build.sh
+Create a docker-compose.yaml similar to the one included in this project.
 
 Then:
 
     $ docker-compose up
     
-This will run the backend listening on port 3000 and the database on 5432.
+The sample docker-compose.yaml will run the backend listening on port 3000 and the database on 5432.
 
 ## API
 
