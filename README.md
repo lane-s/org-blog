@@ -1,5 +1,7 @@
 # org-blog
 
+[![Build Status](https://travis-ci.org/lane-s/org-blog.png?branch=master)](https://travis-ci.org/lane-s/org-blog)
+
 org-blog is intended for emacs users that want to blog directly from org-mode.
 
 org-blog currently does not provide a complete blogging solution right out of the box. It is meant for developers or others who are willing to do the (fairly small) amount of work required to deploy the servers. After this work is done, you'll be able to write and manage posts in emacs. This is great if, like me, you prefer to use emacs for just about everything. For anyone else, it's probably not worth the trouble.
