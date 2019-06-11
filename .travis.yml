@@ -2,7 +2,8 @@ language: clojure
 jobs:
   include:
     - stage: test
-      script: lein test
+      script: docker pull postgres
+      script: ./start-test-db.sh
     - stage: build
       script: ./build.sh
     - stage: push-image
