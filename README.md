@@ -1,6 +1,6 @@
 # org-blog
 
-[![Build Status](https://travis-ci.org/lane-s/org-blog.png?branch=master)](https://travis-ci.org/lane-s/org-blog)
+[![Build Status](https://travis-ci.com/lane-s/org-blog.svg?branch=master)](https://travis-ci.com/lane-s/org-blog)
 
 org-blog is intended for emacs users that want to blog directly from org-mode.
 
