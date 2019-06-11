@@ -10,9 +10,8 @@ jobs:
         - psql -U postgres -d postgres -c "alter user postgres with password 'docker';"
       script: lein test
     - stage: build
-      script: ./build.sh
-    - stage: push-image
       script:
+        - ./build.sh
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
         - docker push melodylane/org-blog:latest
 services:
