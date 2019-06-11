@@ -1,6 +1,8 @@
-# org-blog
+#+TITLE: org-blog
+#+AUTHOR: Lane Spangler
+#+EMAIL: las4vc@virginia.edu
 
-[![Build Status](https://travis-ci.com/lane-s/org-blog.svg?branch=master)](https://travis-ci.com/lane-s/org-blog)
+[[https://travis-ci.com/lane-s/org-blog][file:https://travis-ci.com/lane-s/org-blog.svg?branch=master]]
 
 org-blog is intended for emacs users that want to blog directly from org-mode.
 
@@ -8,56 +10,72 @@ org-blog currently does not provide a complete blogging solution right out of th
 
 For now, the system consists of three parts:
 - The backend (this repo): stores, parses, and serves blog posts.
-- [org-blog-mode](https://github.com/lane-s/org-blog-mode): an emacs package that provides an interface for managing posts.
+- [[https://github.com/lane-s/org-blog-mode][org-blog-mode]]: an emacs package that provides an interface for managing posts.
 - The frontend: Gets parsed posts from the servers and displays them. An example frontend is on the way.
-
-## Deploying org-blog 
+  
+* Deploying org-blog
 
 Pull the docker image
-    
-    $ docker pull melodylane/org-blog:latest
+
+#+BEGIN_SRC bash
+docker pull melodylane/org-blog:latest
+#+END_SRC
 
 Create a docker-compose.yaml similar to the one included in this project.
 
 Then:
 
-    $ docker-compose up
+#+BEGIN_SRC bash
+docker-compose up
+#+END_SRC
     
 The sample docker-compose.yaml will run the backend listening on port 3000 and the database on 5432.
 
-## API
+* API
 
-See [REST API examples](./api_examples.http) to see how the API can be used
+See [[./api_examples.http][REST API examples]] to see how the API can be used
 
-## Development
+* Development
 
-Requires Clojure, [leiningen](https://leiningen.org/), and Docker
+Requires Clojure, [[https://leningen.org/][leiningen]], and Docker
 
-### Dev Database
+** Dev Database
+
 Pull the postgres docker image
+#+BEGIN_SRC bash
+docker pull postgres
+#+END_SRC
 
-    $ docker pull postgres
-    
-Start the test/dev databases:
+Start the test and dev databases
+#+BEGIN_SRC bash
+./start-dev-db.sh
+#+END_SRC
 
-    $ ./start-dev-db.sh
+** Running Tests
 
-### Running Tests
+#+BEGIN_SRC bash
+lein test
+#+END_SRC
+** Running the development server
 
-    $ lein test
+#+BEGIN_SRC bash
+lein ring server-headless
+#+END_SRC
 
-### Running development server
+** Build
 
-    $ lein ring server headless
-    
-### Build
+Creates a standalone jar and a docker image
 
-    $ ./build.sh
-    
+#+BEGIN_SRC bash
+./build.sh
+#+END_SRC
+
 Run the standalone jar:
-    
-    $ java -jar target/org-blog-0.1.0-SNAPSHOT-standalone.jar
-## License
+#+BEGIN_SRC bash
+java -jar target/org-blog-0.1.0-SNAPSHOT-standalone.jar
+#+END_SRC
+
+* License
 
 Copyright © 2019 Lane Spangler
 
@@ -71,3 +89,4 @@ Public License, v. 2.0 are satisfied: GNU General Public License as published by
 the Free Software Foundation, either version 2 of the License, or (at your
 option) any later version, with the GNU Classpath Exception which is available
 at https://www.gnu.org/software/classpath/license.html.
+
