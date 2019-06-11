@@ -17,3 +17,6 @@ jobs:
 services:
   - docker
   - postgresql
+branches:
+  only:
+    - master
