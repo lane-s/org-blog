@@ -1,0 +1,12 @@
+language: clojure
+jobs:
+  include:
+    - stage: test
+      script: lein test
+    - stage: build
+      script: ./build.sh
+    - stage: push-image
+      script: echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      script: docker push melodylane/org-blog:latest
+services:
+  - docker
