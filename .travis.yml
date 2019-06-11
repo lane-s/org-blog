@@ -5,12 +5,16 @@ jdk:
 jobs:
   include:
     - stage: test
-      script: docker pull postgres
-      script: ./start-test-db.sh
+      before_script:
+        - psql -c 'create database org_blog_test;' -U postgres
+        - psql -U postgres -d postgres -c "alter user postgres with password 'docker';"
+      script: lein test
     - stage: build
       script: ./build.sh
     - stage: push-image
-      script: echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-      script: docker push melodylane/org-blog:latest
+      script:
+        - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+        - docker push melodylane/org-blog:latest
 services:
   - docker
+  - postgresql
