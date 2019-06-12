@@ -54,12 +54,12 @@
           (is (every? #(and (:created_at %)
                             (:updated_at %)) parsed-result)))))
     (testing "Get by filename"
-      (post-is "test_post.org?raw=0" (-> test-post org->json (json/parse-string true))))
+      (post-is "test_post.org?raw=false" (-> test-post org->json (json/parse-string true))))
     (testing "Get raw post by filename"
-      (post-is "test_post.org?raw=1" test-post))
+      (post-is "test_post.org?raw=true" test-post))
     (testing "Update post"
       (is (= (:status (add-post-request {:filename "test_post.org"
                                          :path_relative_to_home "path/test_post.org"
                                          :post test-series-1}))
              200))
-      (post-is "test_post.org?raw=0" (-> test-series-2 org->json (json/parse-string true))))))
+      (post-is "test_post.org?raw=false" (-> test-series-2 org->json (json/parse-string true))))))

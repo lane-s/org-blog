@@ -45,13 +45,12 @@
      ["/post/:filename" {:swagger {:tags ["posts"]}
                          :get {:summary "Get a post by filename"
                                :parameters {:path {:filename string?}
-                                            :query {:raw int?}}
+                                            :query {:raw boolean?}}
                                :handler (fn [{{{:keys [raw]} :query
                                                {:keys [filename]} :path} :parameters}]
                                           (let [result (posts/get-by-filename db {:filename filename})]
                                             {:status 200
-                                             :body (if (= raw 1)
-                                                     result
+                                             :body (if raw result
                                                      (let [parsed-post (org-parser/parse (:post result))]
                                                        (assoc result :post parsed-post)))}))}
                          :delete {:summary "Remove a post"
