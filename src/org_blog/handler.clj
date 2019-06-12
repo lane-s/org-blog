@@ -32,10 +32,11 @@
        :post {:summary "Preview or upload a new post"
               :parameters {:body {:filename string?
                                   :path_relative_to_home string?
-                                  :post string?
-                                  :preview string?}}
-              :handler (fn [{{body :body} :parameters}]
-                         (if (#{"true"} (:preview body))
+                                  :post string?}
+                           :query {:preview boolean?}}
+              :handler (fn [{{body :body
+                              {:keys [preview]} :query} :parameters}]
+                         (if preview
                            (println "This should send a preview event")
                            (do (posts/add-or-update db (select-keys body [:post
                                                                           :filename

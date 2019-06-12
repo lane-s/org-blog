@@ -15,7 +15,7 @@
 (use-fixtures :once db-fixture)
 
 (defn add-post-request [post]
-  (app (-> (mock/request :post "/post")
+  (app (-> (mock/request :post "/post?preview=false")
            (mock/json-body post))))
 
 (def test-post (slurp "./test/org_parser/test_post.org"))
@@ -35,12 +35,10 @@
     (testing "Add posts"
       (let [res (do (add-post-request {:filename "test_post.org"
                                        :path_relative_to_home "path/test_post.org"
-                                       :post test-post
-                                       :preview "false"})
+                                       :post test-post})
                     (add-post-request {:filename "test_post_series_2.org"
                                        :path_relative_to_home "path/test_post_series_2.org"
-                                       :post test-series-2
-                                       :preview "false"}))]
+                                       :post test-series-2}))]
         (is (= (:status res) 200))))
     (testing "List posts"
       (let [res (app (mock/request :get "/posts"))]
@@ -62,7 +60,6 @@
     (testing "Update post"
       (is (= (:status (add-post-request {:filename "test_post.org"
                                          :path_relative_to_home "path/test_post.org"
-                                         :post test-series-1
-                                         :preview "false"}))
+                                         :post test-series-1}))
              200))
       (post-is "test_post.org?raw=0" (-> test-series-2 org->json (json/parse-string true))))))
