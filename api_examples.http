@@ -1,4 +1,4 @@
-:base = http://localhost:3000/api
+:base = http://localhost:3000
 :post_name = test_post.org
 
 # List all posts
@@ -7,20 +7,21 @@ User-Agent: Emacs27
 Accept-Encoding: compress, gzip
 
 # Add a new post
-POST :base/post
+POST :base/post?preview=false
 Content-Type: application/json
 {
 "filename": ":post_name",
-"post": ":BLOG_METADATA:\n:CATEGORY: Clojure\n:END:\n"
+"path_relative_to_home": "some/path",
+"post": ":BLOG_METADATA:\n:CATEGORY: Clojure\n:END:\n",
 }
 
 # Get by filename
-GET :base/post/:post_name
+GET :base/post/:post_name?raw=false
 user-agent: emacs27
 accept-encoding: compress, gzip
 
 # Get raw post by filename
-GET :base/post/:post_name?raw=1
+GET :base/post/:post_name?raw=true
 user-agent: emacs27
 accept-encoding: compress, gzip
 

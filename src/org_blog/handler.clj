@@ -19,8 +19,8 @@
    (ring/router
     [["/swagger.json"
       {:get {:no-doc true
-             :swagger {:info {:title "my-api"
-                              :description "with reitit-ring"}}
+             :swagger {:info {:title "org-blog api"
+                              :description "API for blogging from emacs with org-mode"}}
              :handler (swagger/create-swagger-handler)}}]
      ["/posts" {:swagger {:tags ["posts"]}
                 :get {:summary "Get a list of all posts in the database"
